@@ -8,10 +8,10 @@ output:
 # Loading and preprocessing the data
 
 ### Load packages
-For the analysis we'll need several packages that will help to work with dates, plots and also to transform data sets. These are lubridate, ggplot2, grid, gridExtra, dplyr, Scale, knitr
+For the analysis we'll need several packages that will help us to work with dates, plots and also to transform data sets. These are lubridate, ggplot2, grid, gridExtra, dplyr, Scale, knitr.
 
 ### Load data sets
-After we are sure that folder with data is be in the working directory we can load the data for the analysis
+After we are sure that folder with data is in the working directory we can load the data for the analysis.
 
 ```{r}
 setwd("repdata-data-activity")
@@ -19,7 +19,7 @@ activity <-read.csv("activity.csv")
 ```
 
 ### View the structure of the data set
-Before making the analysis itself we'd like to have a look at the data format and deside whether it needs any preprocessing
+Before making the analysis itself we'd like to have a look at the data format and deside whether it needs any preprocessing.
 
 ```{r}
 str(activity)
@@ -32,7 +32,7 @@ It seems that the order of the variables isn't really convenient, thus we'll hav
 sorted_act <- data.frame("date" = activity$date, "interval" = as.factor(activity$interval), "steps" = as.numeric(activity$steps))
 str(sorted_act)
 ```
-
+  
 # What is mean total number of steps taken per day?
 
 ### Remove NAs
@@ -64,7 +64,8 @@ Having the numbers of steps taken per day we are able to get the mean and median
 ```{r}
 mean_steps_per_day <- mean(steps_per_day_completes$steps)
 median_steps_per_day <- median(steps_per_day_completes$steps)
-mean_steps_per_day; median_steps_per_day
+mean_steps_per_day
+median_steps_per_day
 ```
 Thus, mean of the steps taken per day was 9354.23 and median was 10395.
 
@@ -78,6 +79,7 @@ abline(v = mean_steps_per_day, col="red", lwd = 3)
 abline(v = median_steps_per_day, col="blue", lwd = 3)
 legend(16000, 29, c("mean", "median"), col = c("red", "blue"), lty = c(1, 1), lwd = c(3, 3))
 ```
+  
 Overall, the distribution doesn't appear to be normal. It's quite skewed to the right. It's also proved by the negative difference of the mean and the median of the distribution.
 
 ### Save the graph as PNG file
@@ -87,7 +89,7 @@ Finaly, we save the results as PNG file.
 dev.copy(png, file = "The total number of steps taken each day.Png")
 dev.off() 
 ```
-
+  
 # What is the average daily activity pattern?
 
 ### Calculate average numbers of steps taken by 5-minute intervals
@@ -112,9 +114,10 @@ Now it's easy to get the 5-minute interval during which the maximum number of st
 max_steps_taken <- max(avg_steps_by_interval$steps)
 max_steps_interval <- as.character(avg_steps_by_interval[
         which(avg_steps_by_interval$steps == max_steps_taken), 1])
-max_steps_taken; max_steps_interval
+max_steps_taken
+max_steps_interval
 ```
-Consequently, the maximum of 206 steps were taken during the 835-th 5-minute interval or at 8:35-40 o'clock, more likely when going to the job place in the morning.
+Consequently, the maximum of 206 steps were taken during the 835-th 5-minute interval or at 8:35-40 o'clock, more likely when going to the job in the morning.
 
 ### Build a plot of the average numbers of steps taken by 5-minute intervals
 We are able now to draw a graph of the average number of steps taken during various 5-minute intervals through the day.
@@ -127,7 +130,7 @@ axis(1, at = c(0, 600, 1200, 1800, 2400))
 abline(v = max_steps_interval, col = "green", lwd = 2)
 legend(1487, 214.5, "maximum", col = "green", lty = 1)
 ```
-
+  
 ### Save the graph as PNG file
 Again we save the results as PNG file.
 
@@ -135,7 +138,7 @@ Again we save the results as PNG file.
 dev.copy(png, file = "The average number of steps taken across all days by interval.Png")
 dev.off() 
 ```
-
+  
 # Imputing missing values
 
 ### Calculate and report the total number of missing values in the dataset
@@ -182,7 +185,8 @@ Having the numbers of steps taken per day we are able to get the mean and median
 ```{r}
 new_mean_steps_per_day <- mean(steps_per_day_filled$steps)
 new_median_steps_per_day <- median(steps_per_day_filled$steps)
-new_mean_steps_per_day; new_median_steps_per_day
+new_mean_steps_per_day
+new_median_steps_per_day
 ```
 Thus, mean of the steps taken per day was 10765.64 and median was 10762.
 
@@ -196,6 +200,7 @@ abline(v = new_mean_steps_per_day, col="red", lwd = 3)
 abline(v = new_median_steps_per_day, col="blue", lwd = 1)
 legend(16000, 35, c("mean", "median"), col = c("red", "blue"), lty = c(1, 1), lwd = c(3, 1))
 ```
+  
 The histogram of steps per day with filled values looks much more interesting than the one with droped missing values. It definitely reminds the normal distribution and at least is quite simmetric, as the mean almost equals the median of the distribution. As we saw, the filled values for a day was a number near the mean of the distribution. Consequently, such a filling made the distribution streched up in the center and decreased on the sides.
 
 ### Save the graph as PNG file
@@ -204,7 +209,7 @@ And we're going to save the results as PNG file once more.
 dev.copy(png, file = "The total number of steps taken each day (with filled values).Png")
 dev.off()
 ```
-
+  
 # Are there differences in activity patterns between weekdays and weekends?
 
 ### Change system names for days week to English
@@ -245,7 +250,8 @@ for (day in levels(filled_act$week_day)) {
 }
 avg_steps_by_interval_new <- avg_steps_by_interval_new[-1, ]
 avg_steps_by_interval_new$steps <- round(as.numeric(avg_steps_by_interval_new$steps))
-head(avg_steps_by_interval_new); tail(avg_steps_by_interval_new)
+head(avg_steps_by_interval_new)
+tail(avg_steps_by_interval_new)
 ```
 
 ### Separate table by day of week factor
@@ -254,7 +260,8 @@ To make the plotting easier we'll separate the table by the weekday/end factor.
 ```{r}
 weekday_avg_steps_by_interval <- avg_steps_by_interval_new[which(avg_steps_by_interval_new$week_day == "weekday"), ]
 weekend_avg_steps_by_interval <- avg_steps_by_interval_new[which(avg_steps_by_interval_new$week_day == "weekend"), ]
-head(weekday_avg_steps_by_interval); head(weekend_avg_steps_by_interval)
+head(weekday_avg_steps_by_interval)
+head(weekend_avg_steps_by_interval)
 ```
 
 ### Build a plot of the average numbers of steps taken by 5-minute intervals
@@ -273,6 +280,7 @@ weekend_steps <- ggplot(data = weekend_avg_steps_by_interval, aes(x = interval, 
         scale_x_discrete(breaks = seq(0, 2400, 600))
 grid.arrange(arrangeGrob(weekday_steps, weekend_steps, ncol=1, nrow = 2))
 ```
+  
 Comparing the plots we can say that on weekdays people walk a lot in the morning (around 225 steps at near 9 o'clock), probably when hurring to their jobs, while during the rest of the day they are less active (no more then 100 steps in a 5-minute interval). On the contrary, on weekends people walk less actively in the morning (no more than 175 steps in a 5-minute interval), but they walk more during the whole day (the variability of steps taken from 10 to 21 o'clock is greater on weekends than on weekdays).
 
 ### save the graph as PNG file
