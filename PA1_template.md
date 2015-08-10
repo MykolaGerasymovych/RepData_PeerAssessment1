@@ -237,7 +237,7 @@ sum(is.na(sorted_act))
 So we have 2304 NAs.
 
 ### Copy the main data set and fill in all the missing values
-For more accurate research we need to feel in the missing values with some truthful numbers. We'll use interval averages calculated on the previous step of research.
+For more accurate research we need to fill in the missing values with some plausible numbers. We'll use interval averages calculated on the previous step of research.
 
 
 ```r
