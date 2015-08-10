@@ -144,8 +144,6 @@ Finaly, we save the results as PNG file.
 dev.copy(png, file = "The total number of steps taken each day.Png")
 dev.off() 
 ```
-
-![plot of chunk unnamed-chunk-8](figure/unnamed-chunk-8-1.png) 
   
 # What is the average daily activity pattern?
 
@@ -222,8 +220,6 @@ Again we save the results as PNG file.
 dev.copy(png, file = "The average number of steps taken across all days by interval.Png")
 dev.off() 
 ```
-
-![plot of chunk unnamed-chunk-12](figure/unnamed-chunk-12-1.png) 
   
 # Imputing missing values
 
@@ -342,8 +338,6 @@ And we're going to save the results as PNG file once more.
 dev.copy(png, file = "The total number of steps taken each day (with filled values).Png")
 dev.off()
 ```
-
-![plot of chunk unnamed-chunk-18](figure/unnamed-chunk-18-1.png) 
   
 # Are there differences in activity patterns between weekdays and weekends?
 
@@ -505,5 +499,3 @@ Last but not least, we're going to save these plots too.
 dev.copy(png, file = "The average number of steps taken by interval on weekdays and weekends.Png")
 dev.off()
 ```
-
-![plot of chunk unnamed-chunk-24](figure/unnamed-chunk-24-1.png) 
